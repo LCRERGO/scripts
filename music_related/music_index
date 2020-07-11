@@ -1,0 +1,8 @@
+#!/bin/sh
+# A script that produces a index for the music directory
+
+dir="$1"
+for file in "${dir:="$HOME"/Música}"/*; do
+    echo "$file" | sed 's|\.[a-zA-Z0-9]\{3,4\}||'
+done | cut -f5 -d'/' 
+#| nl

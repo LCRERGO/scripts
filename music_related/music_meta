@@ -1,0 +1,20 @@
+#!/bin/env sh
+# A script to alter music metadata for mpd
+
+dir=$1
+for file in "${dir:=$PWD}"/*; do
+    comment="$(echo "$file" | sed -n -e 's|.*/||' \
+        -e 's/(ft\.[^)]*)//g' -e 's/([Ff]eat[^)]*)//g' \
+        -e 's/.*(\(.*\)).*/\1/gp')"
+    artist_tmp="$(echo "$file" | sed -e 's|.*/||' \
+        -e 's|\.[a-zA-Z0-4]\{3,4\}||' \
+        | awk -F " - " '{print $1}')"
+    title_tmp="$(echo "$file" | sed -e 's|.*/||' \
+        -e 's|\.[a-zA-Z0-4]\{3,4\}||' \
+        | awk -F " - " '{print $2}')"
+
+    artist=$(echo "$artist_tmp" | sed 's/ (.*)//g')
+    title=$(echo "$title_tmp" | sed 's/ (.*)//g')
+
+    id3v2 -t "$title" -a "$artist" -c "$comment" "$file"
+done

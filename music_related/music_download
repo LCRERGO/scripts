@@ -1,0 +1,5 @@
+#!/bin/env sh
+# A script to download music from videos
+
+url=$1
+youtube-dl -fbestaudio -o "%(title)s.%(ext)s" $url

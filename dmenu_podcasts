@@ -1,0 +1,10 @@
+#!/bin/env sh
+# A script to select a podcast and run it in mpv
+
+pod=$(for file in ~/Downloads/Podcasts/*; do
+    echo "$file"
+done | dmenu -p "podcast> " -l 5)
+
+if [ -n "$pod" ];then
+    mpv --vid=no "$pod"
+fi

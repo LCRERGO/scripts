@@ -1,0 +1,12 @@
+#!/bin/env bash
+# A conversion script
+
+dir=$1
+for file in "${dir:=$PWD}"/*.{webm,m4a}; do
+    [[ "$file" =~ \.webm ]] && \
+        ffmpeg -nostdin -i "$file" -acodec libmp3lame "${file/webm/mp3}" && \
+        rm -v "$file"
+    [[ "$file" =~ \.m4a ]] && \
+        ffmpeg -nostdin -i "$file" -acodec libmp3lame "${file/m4a/mp3}" && \
+        rm -v "$file"
+done

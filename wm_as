@@ -1,0 +1,5 @@
+#!/bin/env sh
+# This is a script for Window Manager development
+
+Xephyr -br -ac -noreset -screen 800x600 :1 &
+export DISPLAY=:1

@@ -1,0 +1,29 @@
+#!/bin/env bash
+# A script to open a interpreter language in the terminal
+
+option=$(printf "\\ue777 Haskell\\n\\uf81d Javascript\\n\\ue620 Lua\\n\
+\\uf820 Python 2\\n\\uf81f Python 3\\n\\ufcd2 R" | dmenu -p "language" \
+| cut -f1 -d' ' --complement)
+
+case $option in
+    "Haskell")
+        st -e ghci
+        ;;
+    "Javascript")
+        st -e node
+        ;;
+    "Lua")
+        st -e lua
+        ;;
+    "Python 3")
+        st -e python3
+        ;;
+    "Python 2")
+        st -e python2
+        ;;
+    "R")
+        echo "R -q --no-save" | xargs st -e
+        ;;
+    *)
+        ;;
+esac

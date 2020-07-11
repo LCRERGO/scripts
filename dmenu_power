@@ -1,0 +1,9 @@
+#!/bin/env sh
+# System Power Options
+
+option=$(printf "poweroff\\nreboot\\nsuspend" | dmenu -p "Energy Options")
+
+if [ "$option" = "poweroff" ] || [ "$option" = "reboot" ] || \
+    [ "$option" = "suspend" ]; then
+    systemctl "$option"
+fi
